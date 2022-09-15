@@ -6,7 +6,7 @@ import requests
 def index(request):
     city = "Yozgat"
     API_KEY = config("API_KEY")
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}"
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
     response = requests.get(url)
     content = response.json()
     # pprint(content)
