@@ -26,6 +26,13 @@
     </form>
     <br> <hr>
 
+     {% for i in city_data  %}
+        {{i.city}} <br>
+        {{i.temp}} <br>
+        <img src="http://openweathermap.org/img/wn/{{i.icon}}@2x.png" alt=""> <br>
+        {{i.desc}} <br>
+    {% endfor %}
+
 
     {{city}} <br>
     {{temp}} <br>
