@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,7 +29,7 @@
 
      {% for i in city_data  %}
         {{i.city}} <br>
-        {{i.temp}} <br>
+        {{i.temp}} &#8451 <br>
         <img src="http://openweathermap.org/img/wn/{{i.icon}}@2x.png" alt=""> <br>
         {{i.desc}} <br>
     {% endfor %}
@@ -39,5 +40,9 @@
     <img src="http://openweathermap.org/img/wn/{{icon}}@2x.png">
     <br>
     {{desc}} <br>
+
+
+
+    <script src="{% static 'weatherapp/js/timeout.js' %}"></script>
 </body>
 </html>
