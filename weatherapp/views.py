@@ -1,20 +1,35 @@
 from django.shortcuts import render
 from decouple import config
 from pprint import pprint
+from django.contrib import messages
+from .models import City
 import requests
 
 def index(request):
+    API_KEY = config("API_KEY")
     city = "Yozgat"
+    u_city = request.POST.get("name")
+    
+    if u_city:
+         
+         url = f"https://api.openweathermap.org/data/2.5/weather?q={u_city}&appid={API_KEY}&units=metric"
+         response = requests.get(url)
+         print(response.ok)
+         if response.ok:
+            content = response.json()
+            r_city = content["name"]
+            if City.objects.filter(name = r_city):
+                messages.warning(request,"City already exists!")
+            else:
+                City.objects.create(name = r_city)    
+         else:
+            messages.warning(request,"There is no city")
+
     API_KEY = config("API_KEY")
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
     response = requests.get(url)
     content = response.json()
-    # pprint(content)
-    pprint(content["name"])
-    pprint(content["main"]["temp"])
-    pprint(content["weather"][0]["description"])
-    pprint(content["weather"][0]["icon"])
-
+    
 
     context = {
        "city" :  content["name"],
